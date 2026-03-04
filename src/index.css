@@ -1,0 +1,379 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-background-primary: var(--bg-primary);
+  --color-background-secondary: var(--bg-secondary);
+  --color-background-card: var(--bg-card);
+  --color-background-elevated: var(--bg-elevated);
+
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-accent-success: var(--accent-success);
+  --color-accent-warning: var(--accent-warning);
+  --color-accent-danger: var(--accent-danger);
+  --color-accent-gold: var(--accent-gold);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+
+  --color-border-cyan: var(--border);
+
+  --shadow-glow: var(--glow);
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   APPLE-INSPIRED DARK THEME
+   Pure black canvas, frosted glass, zero neon, surgical precision
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --bg-card: rgba(28, 28, 30, 0.72);
+  --bg-elevated: rgba(44, 44, 46, 0.65);
+  --accent-primary: #0a84ff;
+  --accent-secondary: #5e5ce6;
+  --accent-success: #30d158;
+  --accent-warning: #ff9f0a;
+  --accent-danger: #ff453a;
+  --accent-gold: #ffd60a;
+  --text-primary: #f5f5f7;
+  --text-secondary: #86868b;
+  --text-muted: #48484a;
+  --border: rgba(255, 255, 255, 0.08);
+  --glow: 0 0 0 transparent;
+}
+
+/* Light theme overrides — Apple Light */
+[data-theme='light'] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f7;
+  --bg-card: rgba(255, 255, 255, 0.8);
+  --bg-elevated: rgba(242, 242, 247, 0.9);
+  --accent-primary: #0071e3;
+  --text-primary: #1d1d1f;
+  --text-secondary: #86868b;
+  --text-muted: #aeaeb2;
+  --border: rgba(0, 0, 0, 0.06);
+  --glow: 0 0 0 transparent;
+}
+
+@layer base {
+  body {
+    @apply text-text-primary antialiased font-sans;
+    position: relative;
+    min-height: 100vh;
+    background-color: var(--bg-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  /* No gradient mesh orbs — Apple uses pure black */
+  body::before {
+    content: '';
+    display: none;
+  }
+
+  body::after {
+    content: '';
+    display: none;
+  }
+
+  [data-theme='light'] body {
+    background-color: #ffffff;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+  }
+
+  /* Apple uses extremely tight letter-spacing on big headlines */
+  h1 { letter-spacing: -0.04em; }
+  h2 { letter-spacing: -0.035em; }
+
+  /* ── Select dropdown styling ── Ensure options are always visible */
+  select {
+    color: var(--text-primary);
+    background-color: var(--bg-elevated);
+  }
+
+  select option {
+    color: #f5f5f7;
+    background-color: #1c1c1e;
+    padding: 8px 12px;
+  }
+
+  [data-theme='light'] select option {
+    color: #1d1d1f;
+    background-color: #ffffff;
+  }
+
+  [data-theme='light'] select {
+    color: var(--text-primary);
+    background-color: var(--bg-elevated);
+  }
+}
+
+@layer components {
+  /* ── Glass Card ── Apple's frosted glass panels */
+  .glass-card {
+    @apply bg-background-card backdrop-blur-2xl border border-border-cyan rounded-2xl transition-all duration-300 ease-out;
+    box-shadow:
+      0 0 0 0.5px rgba(255, 255, 255, 0.05) inset,
+      0 2px 4px rgba(0, 0, 0, 0.08);
+  }
+
+  .glass-card:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow:
+      0 0 0 0.5px rgba(255, 255, 255, 0.08) inset,
+      0 8px 32px rgba(0, 0, 0, 0.16);
+    transform: translateY(-1px);
+  }
+
+  /* ── Primary Button ── Apple's signature pill buttons */
+  .btn-primary {
+    @apply relative overflow-hidden bg-accent-primary text-white font-semibold rounded-full px-7 py-3 transition-all duration-200;
+    letter-spacing: -0.01em;
+  }
+
+  .btn-primary:hover {
+    filter: brightness(1.15);
+    transform: scale(1.02);
+  }
+
+  .btn-primary:active {
+    @apply scale-95;
+    filter: brightness(0.95);
+  }
+
+  /* ── Input Field ── Clean Apple-style inputs */
+  .input-field {
+    @apply w-full bg-background-elevated/50 border border-border-cyan rounded-xl px-4 py-3 text-text-primary focus:outline-none transition-all duration-200;
+    font-size: 15px;
+  }
+
+  .input-field:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.15);
+  }
+
+  /* ── Gradient Text ── Subtle, not aggressive */
+  .gradient-text {
+    @apply text-transparent bg-clip-text;
+    background-image: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+  }
+
+  /* ── Premium Card ── Elevated frosted panel */
+  .premium-card {
+    position: relative;
+    background: rgba(28, 28, 30, 0.8);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .premium-card::before {
+    content: none;
+  }
+
+  .premium-card:hover {
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+  }
+
+  /* ── Gradient Divider ── Ultra-subtle line */
+  .gradient-divider {
+    height: 0.5px;
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+  }
+
+  /* ── Shimmer Hover Effect ── Understated Apple reflection */
+  .shimmer-hover {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer-hover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.02), transparent);
+    transition: left 0.8s ease;
+    pointer-events: none;
+  }
+
+  .shimmer-hover:hover::after {
+    left: 100%;
+  }
+}
+
+/* Light theme component overrides */
+[data-theme='light'] .premium-card {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme='light'] .premium-card:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme='light'] .glass-card {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme='light'] .glass-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SCROLLBAR — Invisible until hovered (Apple-style)
+   ═══════════════════════════════════════════════════════════════ */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme='light'] ::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+[data-theme='light'] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ANIMATIONS — Smooth, understated physics
+   ═══════════════════════════════════════════════════════════════ */
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes fade-in-scale {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spotlight {
+  0% { opacity: 0; transform: translate(-72%, -62%) scale(0.5); }
+  100% { opacity: 1; transform: translate(-50%,-40%) scale(1); }
+}
+
+.animate-spotlight {
+  animation: spotlight 2s ease .75s 1 forwards;
+}
+
+@keyframes bg-pan {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* Animated gradient background — darker, calmer */
+.animated-gradient-bg {
+  background: linear-gradient(-45deg, #000000, #0a0a0a, #111111, #0a0a0a);
+  background-size: 400% 400%;
+  animation: gradient-shift 12s ease infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TOGGLE SWITCH — Apple-style
+   ═══════════════════════════════════════════════════════════════ */
+
+.toggle-premium {
+  position: relative;
+  width: 52px;
+  height: 32px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  outline: none;
+}
+
+.toggle-premium.active {
+  background: var(--accent-success);
+}
+
+.toggle-premium.inactive {
+  background: rgba(120, 120, 128, 0.32);
+}
+
+.toggle-premium .toggle-knob {
+  position: absolute;
+  top: 2px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15), 0 3px 1px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toggle-premium.active .toggle-knob {
+  left: 22px;
+}
+
+.toggle-premium.inactive .toggle-knob {
+  left: 2px;
+}
